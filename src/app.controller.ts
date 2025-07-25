@@ -27,7 +27,7 @@ interface UserService {
 export class AppController implements OnModuleInit {
   private userService: UserService;
 
-  constructor(@Inject('USER_PACKAGE') private client: ClientGrpc) {}
+  constructor(@Inject('SERVICE_PACKAGE') private client: ClientGrpc) {}
 
   onModuleInit() {
     this.userService = this.client.getService<UserService>('UserService');

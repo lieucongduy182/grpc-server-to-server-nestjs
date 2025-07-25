@@ -1,23 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { UserModule } from './user/user.module';
 import { join } from 'path';
+import { AppModule } from './grpc-server.module';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    UserModule,
+    AppModule,
     {
       transport: Transport.GRPC,
       options: {
-        package: 'user',
-        protoPath: join(__dirname, '../proto/user.proto'),
+        package: 'services',
+        protoPath: join(__dirname, '../proto/services.proto'),
         url: 'localhost:50051',
       },
     },
   );
 
   await app.listen();
-  console.log('gRPC server is running on port 50051');
+  console.log('gRPC multiple server is running on port 50051');
 }
 
 bootstrap();

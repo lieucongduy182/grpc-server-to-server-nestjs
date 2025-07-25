@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package services;
+
+// User Service
+service UserService {
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+  rpc GetAllUsers(Empty) returns (GetAllUsersResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+service AuthService {
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+}
+
+// User Messages
+message GetUserRequest {
+  int32 id = 1;
+}
+message GetUserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string address= 4;
+}
+message CreateUserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+message UpdateUserRequest {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+}
+message UpdateUserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string message = 6;
+  string updated_at = 8;
+}
+message DeleteUserRequest {
+  int32 id = 1;
+}
+message DeleteUserResponse {
+  string message = 1;
+}
+message GetAllUsersResponse {
+  repeated GetUserResponse users = 1;
+}
+
+// Auth Messages
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+message LoginResponse {
+  string access_token= 1;
+  string refresh_token = 2;
+  GetUserResponse user = 3;
+  string message =4;
+}
+message RegisterRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  string phone = 4;
+  string address = 5;
+}
+message RegisterResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string message = 6;
+}
+message ValidateTokenRequest {
+  string token = 1;
+}
+message ValidateTokenResponse {
+  bool valid = 1;
+  GetUserResponse user = 2;
+  string message = 3;
+}
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+message RefreshTokenResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string message = 3;
+}
+message LogoutRequest {
+  string token = 1;
+}
+message LogoutResponse {
+  string message = 1;
+}
+
+message Empty {}

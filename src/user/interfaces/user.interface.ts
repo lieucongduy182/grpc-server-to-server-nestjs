@@ -2,6 +2,10 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  phone?: string;
+  address?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface GetUserRequest {
@@ -11,6 +15,8 @@ export interface GetUserRequest {
 export interface CreateUserRequest {
   name: string;
   email: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface CreateUserResponse {
@@ -18,6 +24,8 @@ export interface CreateUserResponse {
   name: string;
   email: string;
   message: string;
+  phone?: string;
+  address?: string;
 }
 
 export interface GetAllUsersResponse {

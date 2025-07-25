@@ -12,11 +12,19 @@ export class UserService {
       id: 1,
       name: 'John Doe',
       email: 'john@example.com',
+      phone: '123-456-7890',
+      address: '123 Main St, Anytown, USA',
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       id: 2,
       name: 'Jane Smith',
       email: 'jane@example.com',
+      phone: '987-654-3210',
+      address: '456 Elm St, Othertown, USA',
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ];
 
@@ -29,6 +37,10 @@ export class UserService {
       id: this.users.length + 1,
       name: createUserRequest.name,
       email: createUserRequest.email,
+      phone: createUserRequest.phone,
+      address: createUserRequest.address,
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
     this.users.push(newUser);
