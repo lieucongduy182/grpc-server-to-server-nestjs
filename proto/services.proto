@@ -19,6 +19,15 @@ service AuthService {
   rpc Logout(LogoutRequest) returns (LogoutResponse);
 }
 
+service ProductService {
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+  rpc GetAllProducts(Empty) returns (GetAllProductsResponse);
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);
+  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse);
+}
+
 // User Messages
 message GetUserRequest {
   int32 id = 1;
@@ -79,10 +88,10 @@ message LoginRequest {
   string password = 2;
 }
 message LoginResponse {
-  string access_token= 1;
+  string access_token = 1;
   string refresh_token = 2;
   GetUserResponse user = 3;
-  string message =4;
+  string message = 4;
 }
 message RegisterRequest {
   string name = 1;
@@ -120,6 +129,84 @@ message LogoutRequest {
 }
 message LogoutResponse {
   string message = 1;
+}
+
+// Product Messages
+message GetProductRequest {
+  int32 id = 1;
+}
+message GetProductResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stock = 5;
+  string category = 6;
+  string image_url = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+message CreateProductRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+  int32 stock = 4;
+  string category = 5;
+  string image_url = 6;
+}
+message CreateProductResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stock = 5;
+  string category = 6;
+  string image_url = 7;
+  string message = 8;
+  string created_at = 9;
+}
+message UpdateProductRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stock = 5;
+  string category = 6;
+  string image_url = 7;
+}
+message UpdateProductResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  int32 stock = 5;
+  string category = 6;
+  string image_url = 7;
+  string message = 8;
+  string updated_at = 9;
+}
+message DeleteProductRequest {
+  int32 id = 1;
+}
+message DeleteProductResponse {
+  string message = 1;
+}
+message GetAllProductsResponse {
+  repeated GetProductResponse products = 1;
+}
+message SearchProductsRequest {
+  string query = 1;
+  string category = 2;
+  double min_price = 3;
+  double max_price = 4;
+  int32 page = 5;
+  int32 limit = 6;
+}
+message SearchProductsResponse {
+  repeated GetProductResponse products = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 limit = 4;
 }
 
 message Empty {}

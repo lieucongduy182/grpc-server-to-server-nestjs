@@ -11,6 +11,7 @@ import {
   ValidateTokenRequest,
   ValidateTokenResponse,
 } from './interfaces/auth.interface';
+import { ErrorResponse } from 'src/types/commons';
 
 @Injectable()
 export class AuthService {
@@ -30,16 +31,24 @@ export class AuthService {
   ];
   private blacklistedTokens = new Set<string>();
 
-  async login(loginRequest: LoginRequest): Promise<LoginResponse> {
+  async login(
+    loginRequest: LoginRequest,
+  ): Promise<LoginResponse | ErrorResponse> {
     const user = this.users.find((u) => u.email === loginRequest.email);
 
     if (!user || user.password !== loginRequest.password) {
-      throw new Error('Invalid credentials');
+      return {
+        error: 'Invalid credentials',
+      };
     }
 
     // mock token generation
     const accessToken = `access_token_${user.id}_${Date.now()}`;
     const refreshToken = `refresh_token_${user.id}_${Date.now()}`;
+    console.log(
+      '🚀 [Debug] ~ auth.service.ts:48 ~ AuthService ~ accessToken:',
+      accessToken,
+    );
 
     const { password: _, ...userWithoutPassword } = user;
 
@@ -77,6 +86,10 @@ export class AuthService {
   async validateToken(
     validateTokenRequest: ValidateTokenRequest,
   ): Promise<ValidateTokenResponse> {
+    console.log(
+      '🚀 [Debug] ~ auth.service.ts:89 ~ AuthService ~ validateTokenRequest:',
+      validateTokenRequest,
+    );
     if (this.blacklistedTokens.has(validateTokenRequest.token)) {
       return {
         valid: false,
@@ -127,12 +140,12 @@ export class AuthService {
     }
 
     // mock token generation
-    const accessToken = `access_token_${user.id}_${Date.now()}`;
-    const refreshToken = `refresh_token_${user.id}_${Date.now()}`;
+    const access_token = `access_token_${user.id}_${Date.now()}`;
+    const refresh_token = `refresh_token_${user.id}_${Date.now()}`;
 
     return {
-      access_token: accessToken,
-      refresh_token: refreshToken,
+      access_token,
+      refresh_token,
       message: 'Tokens refreshed successfully',
     };
   }

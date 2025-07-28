@@ -13,8 +13,7 @@ import {
   ValidateTokenRequest,
   ValidateTokenResponse,
 } from './interfaces/auth.interface';
-
-type ErrorResponse = { error: string };
+import { ErrorResponse } from '../types/commons';
 
 @Controller()
 export class AuthController {

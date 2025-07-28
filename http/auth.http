@@ -1,9 +1,20 @@
 # Register
 curl -X POST http://localhost:3000/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@example.com","password":"password123","phone":"1234567890","address":"123 Test St"}'
+  -d '{"name":"Test User ","email":"test2222@example.com","password":"password123","phone":"1234567890","address":"123 Test St"}'
 
-# Login
+### Login
 curl -X POST http://localhost:3000/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"test@example.com","password":"password123"}'
+  -d '{"email":"john@example.com","password":"password123"}'
+
+
+### Logout
+curl -X POST http://localhost:3000/auth/logout \
+  -H "Content-Type: application/json" \
+  -d '{"token": "access_token_1_1753691241165"}'
+
+### Validate token
+curl -X POST http://localhost:3000/auth/validate-token \
+  -H "Content-Type: application/json" \
+  -d '{"token": "access_token_1_1753691588529"}'
